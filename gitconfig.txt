@@ -3,3 +3,11 @@ git config --global user.email miguelluiznegrellecantu@gmail.com
 
 -- Criar um projeto React Native Expo
 npx create-expo-app@latest Calculadora --template blank
+
+-- Restaurar o projeto (Toda vez que fizr um clone)
+cd Calculadora
+npm i
+
+-- Executar o projeto
+npx expo start 
+npx expo start --android
