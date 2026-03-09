@@ -6,18 +6,49 @@ export default function App() {
   const [display, setDisplay] = useState("0");
   const [previousValue, setPreviousValue] = useState(null);
   const [operator, setOperator] =  useState(null);
-  const [waitingForNewValue, setWaitingForNewValu] = useState(false);
+  const [waitingForNewValue, setWaitingForNewValue] = useState(false);
 
   const handleNumberPress = (num) => {
     if (waitingForNewValue) {
       setDisplay(String(num));
-      setWaitingForNewValu(false);
+      setWaitingForNewValue(false);
     } else {
       setDisplay(display == '0' ? String(num) : display + num)
     }
   }
 
-  
+  const handClear = () => {
+    setDisplay ('0');
+    setPreviousValue(null);
+    setOperator(null);
+    setWaitingForNewValue(false);
+  }
+
+  consthandleOperatorPress = (op) => {
+    const inputValue = parseFloat(display);
+
+    if (previousValue === null ) {
+      setPreviousValue(inputValue);
+    } else if (operator) {
+      const result = calculate(previousValue, inputValue, operator);
+      setDisplay(String(result));
+      setPreviousValue(result);
+    }
+
+    setWaitingForNewValue(true);
+    setOperator(op);
+  }
+
+  const calculate = (firstValue, secondValue, operator) => {
+    switch (operator) {
+      case '+': return firstValue + secondValue;
+      case '-': return firstValue - secondValue;
+      case 'x': return firstValue * secondValue;
+      case '÷': return firstValue / secondValue;
+      default: return secondValue;
+    }
+  }
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
